@@ -27,7 +27,13 @@ angular.module('lr.upload.iframe', []).factory('iFrameUpload', function ($q, $ht
       });
       return promise;
     };
-
+    promise.progress = function( fn ) {
+      promise.progressFunction = fn;
+      promise.then(null, null, function( update ) {
+        fn(update);
+      });
+      return promise;
+    };
     promise.error = function( fn ) {
       promise.then(null, function( response ) {
         fn(response, response.status, response.headers, config);
