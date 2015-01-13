@@ -21,6 +21,20 @@ angular.module('lr.upload.iframe', []).factory('iFrameUpload', function ($q, $ht
     var deferred = $q.defer(),
     promise = deferred.promise;
 
+    promise.success = function( fn ) {
+      promise.then(function( response ) {
+        fn(response, response.status, response.headers, config);
+      });
+      return promise;
+    };
+
+    promise.error = function( fn ) {
+      promise.then(null, function( response ) {
+        fn(response, response.status, response.headers, config);
+      });
+      return promise;
+    };
+
     // Extract file elements from the within config.data
     angular.forEach(config.data || {}, function (value, key) {
       if (angular.isElement(value)) {
