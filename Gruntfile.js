@@ -187,7 +187,7 @@ module.exports = function (grunt) {
     'less:dev',
     'jshint',
     'express',
-    'watch',
+    'watch'
   ]);
 
   grunt.registerTask('autotest', [

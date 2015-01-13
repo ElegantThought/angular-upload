@@ -62,6 +62,7 @@
 
       $scope.onUpload = function (files) {
         console.log('AdvancedMarkupCtrl.onUpload', files);
+        $scope.progress = 0;
       };
 
       $scope.onError = function (response) {
@@ -73,6 +74,10 @@
         console.log('AdvancedMarkupCtrl.onComplete', response);
         $scope.responseData = response.data;
       };
+
+      $scope.onProgress = function(response) {
+        $scope.progress = parseInt(100.0 * response.loaded / response.total);
+      }
     });
 
     // Start it up
@@ -94,6 +99,7 @@
         </ul>
       </div>
     </div>
+
 
     <div class="alert alert-info" ng-show="responseData">
       <strong>Last upload response</strong>
@@ -134,6 +140,12 @@
           <label for="accept-mimetypes">Allowed mimetypes. example "image/jpeg,application/pdf" the accept attribute on upload-button also allows for a javascript array of mimetypes</label>
           <input id="accept-mimetypes" class="form-control" type="text" ng-model="acceptTypes" />
         </div>
+        <label>Progress bar</label>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{width:progress+'%'}">
+            {{progress}}% Complete
+          </div>
+        </div>
 
         <upload-button
           class="btn btn-primary btn-upload"
@@ -147,6 +159,7 @@
           on-success="onGlobalSuccess(response)"
           on-error="onError(response)"
           on-complete="onComplete(response)"
+          on-progress="onProgress(response)"
         >Fileupload</div>
       </upload-button>
     </div>

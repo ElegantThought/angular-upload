@@ -74,7 +74,7 @@ The upload button masks the normal file input and makes it look like a button
   on-success="onSuccess(response)" // Optional callback
   on-error="onError(response)" // Optional callback
   on-complete="onComplete(response)" // Optional, callback (called on both on-success and on-error)
-
+  on-progress="onProgress(response)" //Optional, callback for file upload progress
 >Fileupload</div>
 ```
 
